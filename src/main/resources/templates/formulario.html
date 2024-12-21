@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>FORMULARIO DONACIONES</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            /* Fondo general */
+            body {
+                background: linear-gradient(135deg, #4a90e2, #1c1c1c);
+                font-family: Arial, sans-serif;
+                color: #ff9933;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+
+            /* Contenedor del formulario */
+            form {
+                background: #99ccff;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+                padding: 20px 30px;
+                width: 400px;
+                text-align: center;
+
+            }
+
+            /* Título del formulario */
+            h1 {
+                font-size: 22px;
+                font-weight: bold;
+                color: #ffffff;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            /* Estilos de etiquetas y campos de entrada */
+            label {
+                display: block;
+                margin-top: 15px;
+                font-size: 14px;
+                text-align: left;
+                color: #330099;
+            }
+            input, select {
+                width: 100%;
+                padding: 8px;
+                margin-top: 5px;
+                margin: 5px 0;
+                box-sizing: border-box;
+                border: none;
+                border-radius: 5px;
+                background: #ffffff;
+                color: #006666;
+                font-size: 16px;
+                text-align: center; /* Centra el texto dentro de los campos */
+            }
+
+            input {
+                width: 100%;
+                padding: 8px;
+                margin-top: 5px;
+                border: none;
+                border-radius: 5px;
+                background: #ffffff;
+                color: #006666;
+                font-size: 14px;
+            }
+
+            input:focus {
+                outline: none;
+                box-shadow: 0 0 5px #4a90e2;
+            }
+
+            /* Botones */
+            button {
+                background: #4caf50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 14px;
+                margin-top: 20px;
+                margin-right: 10px;
+            }
+
+            button:last-child {
+                background: #e74c3c;
+            }
+
+            button:hover {
+                opacity: 0.9;
+            }
+
+            /* Centrar botones */
+            .button-group {
+                margin-top: 20px;
+                display: flex;
+                justify-content: center;
+            }
+
+            .button-group button {
+                margin: 0 10px;
+            }
+
+
+            /* Para los mensajes de error */
+            p {
+                color: red;
+                text-align: left;
+                margin-top: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <form th:action="@{/donaciones}" th:object="${donacion}" method="post">
+            <h1 th:text="${#strings.isEmpty(donacion.id) ? 'Nuevo Donacion' : 'Editar Donacion'}"></h1>
+            <input type="hidden" th:field="*{id}">
+
+            <label>Producto:</label>
+            <input type="text" id="producto" th:field="*{producto}" required/>
+
+            <label>Tipo de Producto:</label>
+            <input type="text" id="tipo_producto" th:field="*{tipo_producto}" required/>
+
+            <label>Cantidad:</label>
+            <input type="number" id="cantidad" th:field="*{cantidad}" step="0.01" min="0" required/>
+            <p th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}" style="color: red;"></p>
+
+            <label>Tipo de Medida:</label>
+            <input type="text" id="tipo_medida" th:field="*{tipo_medida}" required/>
+
+            <label>Nombre de Donante:</label>
+            <input type="text" id="nombre_donante" th:field="*{nombre_donante}" required/>
+
+            <label>Telefono Donante:</label>
+            <input type="text" id="telefono_donante" th:field="*{telefono_donante}" required/>
+
+            <label>Direccion Donante:</label>
+            <input type="text" id="direccion_donante" th:field="*{direccion_donante}" required/>
+
+
+            <div class="button-group">
+                <button type="submit">Guardar</button>
+                <button type="reset">Reset</button>
+                <button type="button" onclick="window.location.href = '/donaciones';">Volver</button>
+            </div>
+        </form>
+    </body>
+</html>
+
